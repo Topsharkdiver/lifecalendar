@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LifeCalendar — Life in Time</title>
+  <meta name="description" content="LifeCalendar quietly turns real moments into calendar events, so you can see where your time goes — day by day, place by place." />
+  <meta name="robots" content="index,follow" />
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #0b0b0c;
+      --card: rgba(255, 255, 255, 0.06);
+      --card2: rgba(255, 255, 255, 0.09);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.68);
+      --faint: rgba(255, 255, 255, 0.50);
+      --border: rgba(255, 255, 255, 0.12);
+      --accent: rgba(255, 255, 255, 0.92);
+      --shadow: 0 18px 55px rgba(0,0,0,0.45);
+    }
+
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f6f7;
+        --card: rgba(0, 0, 0, 0.04);
+        --card2: rgba(0, 0, 0, 0.06);
+        --text: rgba(0, 0, 0, 0.88);
+        --muted: rgba(0, 0, 0, 0.62);
+        --faint: rgba(0, 0, 0, 0.46);
+        --border: rgba(0, 0, 0, 0.10);
+        --accent: rgba(0, 0, 0, 0.88);
+        --shadow: 0 18px 55px rgba(0,0,0,0.10);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(1200px 600px at 15% 10%, rgba(255,255,255,0.10), transparent 55%),
+                  radial-gradient(900px 550px at 85% 0%, rgba(255,255,255,0.08), transparent 55%),
+                  linear-gradient(180deg, rgba(255,255,255,0.04), transparent 45%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .wrap {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 34px 18px 60px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(18px 18px at 30% 25%, rgba(255,255,255,0.16), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+    }
+
+    h1 {
+      font-size: 22px;
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .ctaRow {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      box-shadow: 0 10px 30px rgba(0,0,0,0.16);
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .btn.primary {
+      background: linear-gradient(180deg, rgba(255,255,255,0.16), rgba(255,255,255,0.08));
+      border-color: rgba(255,255,255,0.18);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .ctaRow { justify-content: flex-start; }
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--card2), var(--card));
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .bullets {
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+      font-size: 14.5px;
+    }
+
+    .bullets li { margin: 7px 0; }
+
+    .pillRow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.06);
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+      color: var(--faint);
+    }
+
+    .quote {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .quote strong { color: var(--accent); font-weight: 700; }
+
+    footer {
+      margin-top: 18px;
+      color: var(--faint);
+      font-size: 12.5px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .links { display: inline-flex; gap: 12px; flex-wrap: wrap; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-label="LifeCalendar">
+          <div class="mark" aria-hidden="true"></div>
+          <div>
+            <h1>LifeCalendar</h1>
+            <p class="tagline">Your life, organized by time — day by day, place by place.</p>
+          </div>
+        </div>
+
+        <div class="ctaRow">
+          <!-- TODO: Replace # with your real App Store link once it’s live -->
+          <a class="btn primary" href="#" rel="noopener">Download on the App Store</a>
+          <!-- TODO: Point this to your existing Privacy Policy page in the repo -->
+          <a class="btn" href="./privacy.html" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h2>What it does</h2>
+        <p>
+          LifeCalendar quietly turns real moments into meaningful calendar events, so you can see where your time really goes — without manual tracking.
+        </p>
+        <ul class="bullets">
+          <li>Creates calendar events based on real places and moments</li>
+          <li>Helps you read your week by time, places, and boundaries</li>
+          <li>Scan documents and anchor them to specific moments (optional reminders)</li>
+          <li>Works with Apple Calendar + Location APIs</li>
+        </ul>
+
+        <div class="quote">
+          <strong>“Life happens in time.</strong> We only make it visible.”
+        </div>
+
+        <div class="pillRow" aria-label="Key properties">
+          <div class="pill">No accounts</div>
+          <div class="pill">No ads</div>
+          <div class="pill">No third-party tracking</div>
+          <div class="pill">Data stays in your calendar</div>
+        </div>
+      </section>
+
+      <aside class="card">
+        <h2>Privacy-first by design</h2>
+        <p>
+          Your data stays on your device and in your iCloud account. If the app disappears, your life history remains — safely stored in your calendar.
+        </p>
+
+        <h2 style="margin-top:14px;">What it is not</h2>
+        <ul class="bullets">
+          <li>Not a social app</li>
+          <li>Not a gamified habit tracker</li>
+          <li>Not an analytics dashboard</li>
+        </ul>
+
+        <h2 style="margin-top:14px;">Support</h2>
+        <p>
+          If you need help or want to share feedback, contact:
+          <!-- TODO: replace with your support email -->
+          <a href="mailto:support@yourdomain.com">support@yourdomain.com</a>
+        </p>
+      </aside>
+    </div>
+
+    <footer>
+      <div>© <span id="y"></span> LifeCalendar</div>
+      <div class="links">
+        <a href="./lifecalendar.html">Product</a>
+        <a href="./privacy.html">Privacy</a>
+        <!-- Optional: link back to your home page -->
+        <a href="./index.html">Home</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Tiny helper: current year
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
